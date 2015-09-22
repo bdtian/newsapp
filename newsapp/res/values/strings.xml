@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">OPEN DAY NEWS</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="loading">loading...</string>
+    <string name="repeat_to_exit">repeat the action to exit</string>
+    
+</resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+     <RelativeLayout
+        android:id="@+id/rss_top_ll"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/favorite_blue"
+        android:orientation="vertical">
+         <Button
+             android:id="@+id/rss_btn_back"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"     
+             android:layout_centerVertical="true"     
+             android:background="@drawable/bottom_icon_back_selector" />
+         </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/deatail_pb"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="4dip"
+        android:layout_below="@+id/rss_top_ll"
+        android:indeterminateOnly="false"
+        android:max="100"
+        android:progressDrawable="@drawable/progress_bar_states" >
+    </ProgressBar>
+
+    <WebView
+        android:layout_below="@+id/rss_top_ll"
+        android:id="@+id/rss_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+   
+</RelativeLayout>
