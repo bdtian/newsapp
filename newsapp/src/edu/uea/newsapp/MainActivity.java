@@ -2,6 +2,7 @@ package edu.uea.newsapp;
 
 import java.util.Date;
 import java.util.List;
+import java.util.*;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -10,12 +11,15 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 
 import edu.uea.newsapp.adapter.RssListAdapter;
 import edu.uea.newsapp.model.RssNews;
-import edu.uea.newsapp.service.HttpUtils;
-import edu.uea.newsapp.utils.XMLTools;
+import edu.uea.newsapp.service.*;
+import edu.uea.newsapp.logic.*;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.*;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -26,12 +30,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements NewsGetTask.NewsGetTaskListener{
 	private PullToRefreshListView mPullToRefreshListView;
 	private TextView mLoadingTextView;
 	private Button mSettingButton;
 	private RssListAdapter mRssListAdapter;
-	private static String sRssUrl = "https://news.google.co.uk/news/feeds?pz=1&cf=all&ned=uk&hl=en&output=rss";
 	private List<RssNews> mNewsList = null;
 	private long TIME_DIFF = 2 * 1000;
 	private long mLastBackTime = 0;
@@ -39,13 +42,13 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//		requestWindowFeature(Window.FEATURE_NO_TITLE);
-//		getWindow().setFlags(WindowManager.LayoutParams.TYPE_STATUS_BAR,
-//				WindowManager.LayoutParams.TYPE_STATUS_BAR);
-
         setContentView(R.layout.activity_main);
         mRssListAdapter = new RssListAdapter(this);
         initView();
+        Intent intent = new Intent(MainActivity.this,NewsDetectionService.class);
+        if (!hasServiceStarted()) {
+            startService(intent);        	
+        }
     }
     
     protected boolean initView() {
@@ -54,20 +57,24 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				if (v == mSettingButton) {
-					Toast.makeText(MainActivity.this, "setting clicked", Toast.LENGTH_LONG).show();
+					Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+					startActivity(intent);
+//					Toast.makeText(MainActivity.this, "setting clicked", Toast.LENGTH_LONG).show();
 				}
 			}
 		});
 
     	mLoadingTextView = (TextView)findViewById(R.id.rss_list_load_text);
+        mLoadingTextView.setVisibility(View.VISIBLE);
+
 		mPullToRefreshListView = (PullToRefreshListView) findViewById(R.id.rss_refreshview);
-		new GetDataTask().execute();
+		new NewsGetTask(this, this).execute();
 		mPullToRefreshListView
 				.setOnRefreshListener(new OnRefreshListener<ListView>() {
 					@Override
 					public void onRefresh(
 							PullToRefreshBase<ListView> refreshView) {
-						new GetDataTask().execute();
+						new NewsGetTask(MainActivity.this, MainActivity.this).execute();
 					}
 
 				});
@@ -81,51 +88,39 @@ public class MainActivity extends Activity {
 								Toast.LENGTH_SHORT).show();
 					}
 				});
+		
 		mPullToRefreshListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				RssNews rssNews = mNewsList.get(arg2 - 1);
+				RssNews newsItem = mNewsList.get(arg2 - 1);
+				if (!newsItem.readed) {
+					 SharedPreferences settings = getSharedPreferences("news_read_status", 0);
+					  SharedPreferences.Editor editor = settings.edit();
+					  editor.putBoolean(newsItem.id, true);
+					  editor.commit();
+					  View readedIcon = arg1.findViewById(R.id.read_icon);
+					  readedIcon.setVisibility(View.VISIBLE);
+				}
 				Intent intent = new Intent(MainActivity.this,
 						NewsDetailActivity.class);
-				intent.putExtra("list", rssNews.toJSONString());
+				intent.putExtra("list", newsItem.toJSONString());
 				startActivity(intent);
 			}
 		});
 		
 		return true;
     }
-        
-	/**
-	 * 获取rss新闻数据
-	 */
-	private class GetDataTask extends AsyncTask<Integer, Void, List<RssNews>> {
 
-		@Override
-		protected void onPreExecute() {
-			mLoadingTextView.setVisibility(View.VISIBLE);
-			super.onPreExecute();
-		}
-
-		@Override
-		protected List<RssNews> doInBackground(Integer... params) {
-			String xmlStr = HttpUtils.httpGet(sRssUrl,
-					"utf-8");
-			List<RssNews> newsList = XMLTools.parseXML(xmlStr);
-			mNewsList = newsList;
-			return newsList;
-		}
-
-		@Override
-		protected void onPostExecute(List<RssNews> result) {
-			super.onPostExecute(result);
-			mRssListAdapter.setData(result);
-			mPullToRefreshListView.onRefreshComplete();
-			mPullToRefreshListView.setAdapter(mRssListAdapter);
-			mRssListAdapter.notifyDataSetChanged();
-			mLoadingTextView.setVisibility(View.GONE);
-		}
+	@Override
+	public void onLoadFinished(List<RssNews> result) {
+		mNewsList = result;
+		mRssListAdapter.setData(result);
+		mPullToRefreshListView.onRefreshComplete();
+		mPullToRefreshListView.setAdapter(mRssListAdapter);
+		mRssListAdapter.notifyDataSetChanged();
+		mLoadingTextView.setVisibility(View.GONE);
 	}
 	
 	@SuppressLint("ShowToast")
@@ -144,4 +139,17 @@ public class MainActivity extends Activity {
 		return super.onKeyDown(keyCode, event);
 	}
 
+	public boolean hasServiceStarted()
+	 {
+	  ActivityManager myManager=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+	  ArrayList<ActivityManager.RunningServiceInfo> runningService = (ArrayList<ActivityManager.RunningServiceInfo>) myManager.getRunningServices(30);
+	  for(int i = 0 ; i<runningService.size();i++)
+	  {
+	   if(runningService.get(i).service.getClassName().toString().equals("edu.uea.newsapp.service.NewsDetectionService"))
+	   {
+	    return true;
+	   }
+	  }
+	  return false;
+	 }
 }

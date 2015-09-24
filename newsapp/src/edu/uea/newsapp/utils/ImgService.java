@@ -1,4 +1,4 @@
-package edu.uea.newsapp.service;
+package edu.uea.newsapp.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;

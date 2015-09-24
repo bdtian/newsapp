@@ -26,7 +26,21 @@
             style="@style/item_text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/item_image" />
+            android:layout_alignBottom="@+id/item_image"
+            />
+            
+        <ImageView
+            android:id="@+id/read_icon"
+            android:src="@drawable/news_readed"
+            android:contentDescription="@string/app_name"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:visibility="gone"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBottom="@+id/item_image"
+            android:layout_alignLeft="@+id/item_image"
+            android:layout_toLeftOf="@+id/item_image"
+            />
 
         <TextView
             android:id="@+id/item_title"

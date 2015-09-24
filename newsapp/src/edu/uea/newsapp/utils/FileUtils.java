@@ -1,4 +1,4 @@
-package edu.uea.newsapp.service;
+package edu.uea.newsapp.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -12,7 +12,7 @@ import edu.uea.newsapp.model.RssNews;
 import android.content.Context;
 import android.os.Environment;
 
-public class FileService {
+public class FileUtils {
 
 	/**
 	 * 保存文件到sdcard

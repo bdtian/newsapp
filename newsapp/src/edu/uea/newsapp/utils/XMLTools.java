@@ -40,6 +40,7 @@ public class XMLTools {
 					if (rssNews != null) {
 						if ("title".equals(parser.getName())) {
 							rssNews.title = parser.nextText();
+							rssNews.id = Md5Utils.MD5(rssNews.title);
 						} else if ("link".equals(parser.getName())) {
 							rssNews.link = parser.nextText();
 						} else if ("pubDate".equals(parser.getName())) {

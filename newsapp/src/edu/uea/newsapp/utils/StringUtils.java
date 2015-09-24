@@ -48,13 +48,11 @@ public class StringUtils {
 					: date.getMinutes() + "";
 			int curMonth = curDate.getMonth() + 1;
 			int curDay = curDate.getDate();
-			// 今天
+
 			if (month == curMonth && day == curDay) {
-				str = "今天   " + hour + ":" + minutes;
+				str = "Today   " + hour + ":" + minutes;
 			} else if (month == curMonth && curDay - day == 1) {
-				str = "昨天   " + hour + ":" + minutes;
-			} else if (month == curMonth && curDay - day == 2) {
-				str = "前天   " + hour + ":" + minutes;
+				str = "Yesterday   " + hour + ":" + minutes;
 			} else {
 				str = month + " 月  " + day + "日  " + hour + ":" + minutes;
 			}

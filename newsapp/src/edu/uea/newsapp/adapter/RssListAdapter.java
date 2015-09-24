@@ -7,7 +7,7 @@ import edu.uea.newsapp.R;
 import edu.uea.newsapp.model.RssNews;
 import edu.uea.newsapp.network.DownloadImg;
 import edu.uea.newsapp.network.DownloadImg.ImageCalback;
-import edu.uea.newsapp.service.FileService;
+import edu.uea.newsapp.utils.FileUtils;
 import edu.uea.newsapp.utils.BitmapCompressTools;
 import edu.uea.newsapp.utils.StringUtils;
 import android.annotation.SuppressLint;
@@ -78,14 +78,20 @@ public class RssListAdapter extends BaseAdapter {
 				.findViewById(R.id.item_image);
 		title.setText(news.title);
 		time.setText(StringUtils.formatDate(new Date(news.pubDate)));
-		if (FileService.readImgFromSdcard(news.imgName, Context.MODE_PRIVATE,
+		
+		View readedIcon = convertView.findViewById(R.id.read_icon);
+		if (news.readed) {
+			readedIcon.setVisibility(View.VISIBLE);
+		}
+		
+		if (FileUtils.readImgFromSdcard(news.imgName, Context.MODE_PRIVATE,
 				"rssCache") != null) {
 			image.setImageBitmap(BitmapCompressTools
-					.decodeSampledBitmapFromByte(FileService.readImgFromSdcard(
+					.decodeSampledBitmapFromByte(FileUtils.readImgFromSdcard(
 							news.imgName, Context.MODE_PRIVATE, "rssCache"),
 							100, 100));
 		} else {
-			// 下载图片
+			// download image
 			if (news.imgUrl.indexOf("http") != 0) {
 				news.imgUrl = "http:"+news.imgUrl;
 			}
@@ -94,8 +100,8 @@ public class RssListAdapter extends BaseAdapter {
 
 				@Override
 				public void getImage(byte[] data) {
-					// 保存图片到sdcard上
-					FileService.savaImgToSdcard(news.imgName,
+					// save image to sdcard
+					FileUtils.savaImgToSdcard(news.imgName,
 							Context.MODE_PRIVATE, data, "rssCache");
 					image.setImageBitmap(BitmapCompressTools
 							.decodeSampledBitmapFromByte(data, 100, 100));

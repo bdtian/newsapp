@@ -1,4 +1,4 @@
-package edu.uea.newsapp.service;
+package edu.uea.newsapp.utils;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

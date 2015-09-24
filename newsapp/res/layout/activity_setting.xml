@@ -1,83 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-     >
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    android:orientation="vertical" >
+     <RelativeLayout
+        android:id="@+id/setting_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="50dp"
         android:background="@color/favorite_blue"
-        android:padding="10dp" >
+        android:orientation="vertical">
+         <Button
+             android:id="@+id/setting_btn_back"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"     
+             android:layout_centerVertical="true"     
+             android:background="@drawable/bottom_icon_back_selector" />
+         <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:textSize="21sp"
+		    android:id="@+id/setting_title"
+		    android:layout_gravity="center"
+		    android:text="@string/action_settings"/>
+    </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/rss_list_logo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:contentDescription="@string/app_name"
-            android:scaleType="centerInside"
-            android:src="@drawable/university_of_east_anglia_logo" />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-        <LinearLayout
-            android:id="@+id/linearLayout1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="3dp"
-            android:padding="3dp"
-            >
-
-            <TextView
-                android:id="@+id/rss_list_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:text="@string/app_name"
-                android:layout_marginTop="3dp"
-                android:textSize="21sp"
-                android:textStyle="italic" />
-        </LinearLayout>
-        <Button
-            android:id="@+id/setting"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/setting"
-            android:contentDescription="@string/app_name"
-            android:gravity="center"
-            android:scaleType="centerInside" />
-        </RelativeLayout>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/rss_list_load_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/loading"
-        android:textSize="15sp"
-        android:textColor="@color/gray"
-        android:visibility="gone" />
-
-	<com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/rss_refreshview"
+		<TextView
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+		    android:id="@+id/interval_label"
+		    android:text="@string/synchronisation_interval"/>
+			
+     	<TimePicker   
+        android:id="@+id/interval"  
+        android:layout_height="wrap_content"  
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/linearLayout2"
-        android:cacheColorHint="#00000000"
-        android:divider="#19000000"
-        android:dividerHeight="1.5dp"
-        android:fadingEdge="none"
-        android:fastScrollEnabled="false"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
-        android:smoothScrollbar="true" />
-</RelativeLayout>
+        />  
+        
+     
+		<TextView
+		            android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		    
+		    android:id="@+id/notification_label"
+		    android:text="@string/notification_type"/>
+		    	    <CheckBox
+	    android:id="@+id/sound"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:text="@string/sound"
+	    /> 
+		    
+		<CheckBox
+    	android:id="@+id/vibration"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:text="@string/vibration"
+ 
+    	/> 
+    	<Button
+    	    android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+    	    android:id="@+id/submit"
+    	    android:layout_gravity="center"
+    	    android:text="@string/submit"
+    	    />    
+</LinearLayout>

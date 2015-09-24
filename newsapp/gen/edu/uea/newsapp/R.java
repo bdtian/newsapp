@@ -735,7 +735,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int bottom_icon_back_selector=0x7f020000;
         public static final int default_ptr_flip=0x7f020001;
         public static final int default_ptr_rotate=0x7f020002;
-        public static final int gray=0x7f02000f;
+        public static final int gray=0x7f020010;
         public static final int ic_launcher=0x7f020003;
         public static final int icon_back_normal=0x7f020004;
         public static final int icon_back_press=0x7f020005;
@@ -743,36 +743,41 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int indicator_bg_bottom=0x7f020007;
         public static final int indicator_bg_top=0x7f020008;
         public static final int item_list_bg_selector=0x7f020009;
-        public static final int progress_bar_states=0x7f02000a;
-        public static final int red=0x7f020010;
-        public static final int setting=0x7f02000b;
-        public static final int uea_splash=0x7f02000c;
-        public static final int university_of_east_anglia_logo=0x7f02000d;
-        public static final int white=0x7f02000e;
+        public static final int news_readed=0x7f02000a;
+        public static final int progress_bar_states=0x7f02000b;
+        public static final int red=0x7f020011;
+        public static final int setting=0x7f02000c;
+        public static final int uea_splash=0x7f02000d;
+        public static final int university_of_east_anglia_logo=0x7f02000e;
+        public static final int white=0x7f02000f;
     }
     public static final class id {
-        public static final int action_settings=0x7f050020;
+        public static final int action_settings=0x7f05002a;
         public static final int both=0x7f050003;
         public static final int deatail_pb=0x7f050015;
         public static final int disabled=0x7f050000;
-        public static final int fl_inner=0x7f05001b;
+        public static final int fl_inner=0x7f050025;
         public static final int flip=0x7f050008;
         public static final int gridview=0x7f050009;
-        public static final int item_image=0x7f050018;
-        public static final int item_layout_head=0x7f050017;
-        public static final int item_time=0x7f050019;
-        public static final int item_title=0x7f05001a;
+        public static final int interval=0x7f05001b;
+        public static final int interval_label=0x7f05001a;
+        public static final int item_image=0x7f050021;
+        public static final int item_layout_head=0x7f050020;
+        public static final int item_time=0x7f050022;
+        public static final int item_title=0x7f050024;
         public static final int linearLayout1=0x7f05000e;
         public static final int linearLayout2=0x7f05000c;
         public static final int manualOnly=0x7f050004;
+        public static final int notification_label=0x7f05001c;
         public static final int pullDownFromTop=0x7f050005;
         public static final int pullFromEnd=0x7f050002;
         public static final int pullFromStart=0x7f050001;
         public static final int pullUpFromBottom=0x7f050006;
-        public static final int pull_to_refresh_image=0x7f05001c;
-        public static final int pull_to_refresh_progress=0x7f05001d;
-        public static final int pull_to_refresh_sub_text=0x7f05001f;
-        public static final int pull_to_refresh_text=0x7f05001e;
+        public static final int pull_to_refresh_image=0x7f050026;
+        public static final int pull_to_refresh_progress=0x7f050027;
+        public static final int pull_to_refresh_sub_text=0x7f050029;
+        public static final int pull_to_refresh_text=0x7f050028;
+        public static final int read_icon=0x7f050023;
         public static final int rotate=0x7f050007;
         public static final int rss_btn_back=0x7f050014;
         public static final int rss_list_load_text=0x7f050011;
@@ -783,6 +788,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int rss_webview=0x7f050016;
         public static final int scrollview=0x7f05000b;
         public static final int setting=0x7f050010;
+        public static final int setting_bar=0x7f050017;
+        public static final int setting_btn_back=0x7f050018;
+        public static final int setting_title=0x7f050019;
+        public static final int sound=0x7f05001d;
+        public static final int submit=0x7f05001f;
+        public static final int vibration=0x7f05001e;
         public static final int webview=0x7f05000a;
     }
     public static final class layout {
@@ -802,6 +813,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int app_name=0x7f070006;
         public static final int hello_world=0x7f070007;
         public static final int loading=0x7f070009;
+        public static final int notification_type=0x7f07000e;
         /**  Just use standard Pull Down String when pulling up. These can be set for languages which require it 
  Just use standard Pull Down String when pulling up. These can be set for languages which require it 
          */
@@ -812,6 +824,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int pull_to_refresh_refreshing_label=0x7f070002;
         public static final int pull_to_refresh_release_label=0x7f070001;
         public static final int repeat_to_exit=0x7f07000a;
+        public static final int sound=0x7f07000b;
+        public static final int submit=0x7f07000f;
+        public static final int synchronisation_interval=0x7f07000d;
+        public static final int vibration=0x7f07000c;
     }
     public static final class style {
         /** 

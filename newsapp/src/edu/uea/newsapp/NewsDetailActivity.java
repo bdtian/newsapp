@@ -4,7 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import edu.uea.newsapp.model.RssNews;
-import edu.uea.newsapp.service.FileService;
+import edu.uea.newsapp.utils.FileUtils;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -59,7 +59,7 @@ public class NewsDetailActivity extends Activity implements View.OnClickListener
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		if (FileService.readImgFromSdcard(news.imgName + ".txt",
+		if (FileUtils.readImgFromSdcard(news.imgName + ".txt",
 				Context.MODE_PRIVATE, "rssCollect") != null) {
 		}
 	}

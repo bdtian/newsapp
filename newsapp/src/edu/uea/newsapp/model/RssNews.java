@@ -3,33 +3,27 @@ package edu.uea.newsapp.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class RssNews {
+import edu.uea.newsapp.utils.*;
 
-	/** 标题 */
+public class RssNews {
+	public String id;
 	public String title;
-	/** 链接地址 */
 	public String link;
-	/** 评论 */
 	public String comments;
-	/** 描述 */
 	public String description;
-	/** 来源 */
 	public String source;
-	/** 日期 */
 	public String pubDate;
-	/** 图片地址 */
 	public String imgUrl;
-	/** 图片名称 */
 	public String imgName;
-	/** 内容 */
 	public String content;
+	public boolean readed = false;
 
 	public RssNews() {
 	}
 
 	@Override
 	public String toString() {
-		return "RssNews [title=" + title + ", link=" + link + ", comments="
+		return "RssNews [id=" +id+", title=" + title + ", link=" + link + ", comments="
 				+ comments + ", description=" + description + ", source="
 				+ source + ", pubDate=" + pubDate + ", imgUrl=" + imgUrl
 				+ ", imgName=" + imgName + ", content=" + content + "]";
@@ -38,6 +32,7 @@ public class RssNews {
 	public String toJSONString() {
 		try {
 			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("id", id);
 			jsonObject.put("title", title);
 			jsonObject.put("link", link);
 			jsonObject.put("comments", comments);
@@ -47,6 +42,7 @@ public class RssNews {
 			jsonObject.put("imgUrl", imgUrl);
 			jsonObject.put("imgName", imgName);
 			jsonObject.put("content", content);
+			jsonObject.put("readed", readed);
 			return jsonObject.toString();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -80,6 +76,8 @@ public class RssNews {
 		news.pubDate = jsonObject.optString("pubDate");
 		news.imgUrl = jsonObject.optString("imgUrl");
 		news.imgName = jsonObject.optString("imgName");
+		news.id = jsonObject.optString("id");
+		news.readed = jsonObject.optBoolean("readed");
 		return news;
 	}
 }

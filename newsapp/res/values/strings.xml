@@ -6,5 +6,10 @@
     <string name="action_settings">Settings</string>
     <string name="loading">loading...</string>
     <string name="repeat_to_exit">repeat the action to exit</string>
+    <string name="sound">sound</string>
+    <string name="vibration">vibration</string>
+    <string name="synchronisation_interval">Synchronisation interval:</string>
+    <string name="notification_type">Notification with:</string>
+    <string name="submit">Change Setting</string>
     
 </resources>
